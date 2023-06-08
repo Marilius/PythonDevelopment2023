@@ -4,6 +4,9 @@
 ---
 
 ### build, install, and run
+
+нужен pipenv и python3.11
+
 ```
 $ pipenv install
 $ pipenv shell # теперь вы в виртуальном окружении
