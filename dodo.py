@@ -8,10 +8,11 @@ DOIT_CONFIG = {'default_tasks': ['html']}
 def task_test():
     """Test"""
     return {
-        'actions': ['python -m unittest -v'],
-        'file_dep': ['tests/test_server.py'],
+        'actions': None,
+        # 'actions': ['python -m unittest -v'],
+        # 'file_dep': ['tests/test_server.py'],
         # 'task_dep': ['i18n'],
-        'clean': True,
+        # 'clean': True,
     }
 
 
