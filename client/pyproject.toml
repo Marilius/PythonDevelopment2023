@@ -1,0 +1,21 @@
+[project]
+name = "Chess_client"
+version = "0.0.1"
+description = "Client for Chess"
+requires-python = ">=3.11"
+authors = [{name = "Basalov Iaroslav", email = "s02200273@gse.cs.msu.ru"}]
+keywords = ["chess", "client"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+repository = "https://github.com/Marilius/PythonDevelopment2023"
+
+[build-system]
+requires = ["alabaster", "Babel", "build", "doit", "flake8", "pybabel", "pycodestyle", "pydocstyle", "pyflakes", "pyreadline3", "setuptools", "Sphinx"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+chess-client = "client.__main__:run"

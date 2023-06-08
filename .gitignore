@@ -1,0 +1,7 @@
+# ignore build, etc
+build/
+dist/
+Chess_client.egg-info/
+
+# ignore doit
+.doit.*
