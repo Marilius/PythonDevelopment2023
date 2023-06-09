@@ -2,7 +2,7 @@
 name = "Chess_client"
 version = "0.0.1"
 description = "Client for Chess"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 authors = [{name = "Basalov Iaroslav", email = "s02200273@gse.cs.msu.ru"}]
 keywords = ["chess", "client"]
 classifiers = [
