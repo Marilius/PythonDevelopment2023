@@ -14,7 +14,7 @@ classifiers = [
 repository = "https://github.com/Marilius/PythonDevelopment2023"
 
 [build-system]
-requires = ["alabaster", "Babel", "build", "doit", "flake8", "pybabel", "pycodestyle", "pydocstyle", "pyflakes", "pyreadline3", "setuptools", "Sphinx"]
+requires = ["alabaster", "Babel", "build", "doit", "flake8", "pybabel", "pycodestyle", "pydocstyle", "pyflakes", "pyreadline3", "setuptools", "Sphinx", "pygame"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]

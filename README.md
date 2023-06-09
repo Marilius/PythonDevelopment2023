@@ -8,6 +8,8 @@
 Нужен pipenv и python3.10
 
 ```
+$ pip3 install pipenv
+$ python3 -m pipenv shell
 $ pipenv install
 $ pipenv shell # теперь вы в виртуальном окружении
 $ flake8 # чекнуть кодстайл
