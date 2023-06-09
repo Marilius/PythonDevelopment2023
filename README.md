@@ -5,7 +5,7 @@
 
 ### build, install, and run
 
-нужен pipenv и python3.11
+Нужен pipenv и python3.11
 
 ```
 $ pipenv install

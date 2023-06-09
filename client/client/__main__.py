@@ -1,2 +1,4 @@
+from .game import game
+
 def run() -> None:
-    pass
+    game()
