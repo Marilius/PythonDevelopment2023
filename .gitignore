@@ -3,5 +3,7 @@ build/
 dist/
 Chess_client.egg-info/
 
+__pycache__/
+
 # ignore doit
 .doit.*
