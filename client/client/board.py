@@ -100,9 +100,6 @@ class Board:
                         if 0 <= pos_i + d0 * 2 <= 7 and 0 <= pos_j + d1 * 1 <= 7:
                             possible_moves.append((LETTERS[pos_i + d0 * 2], NUMS[pos_j + d1 * 1]))
 
-            case 'K':  # king
-                ...
-
             case 'B':  # bishop
                 pos_i, pos_j = LETTERS.find(i), NUMS.find(j)
 
@@ -155,6 +152,31 @@ class Board:
                         possible_moves.append((i, NUMS[pos_j - d]))
                         if isinstance(self.curr_board[(i, NUMS[pos_j - d])], BasePiece):
                             break
+
+            case 'K':  # king
+                pos_i, pos_j = LETTERS.find(i), NUMS.find(j)
+                if 0 <= pos_i + 1 <= 7:
+                    possible_moves.append((LETTERS[pos_i + 1], NUMS[pos_j]))
+                    if 0 <= pos_j + 1 <= 7:
+                        possible_moves.append((LETTERS[pos_i + 1], NUMS[pos_j + 1]))
+                    if 0 <= pos_j - 1 <= 7:
+                        possible_moves.append((LETTERS[pos_i + 1], NUMS[pos_j - 1]))
+                
+                if 0 <= pos_i - 1 <= 7:
+                    possible_moves.append((LETTERS[pos_i - 1], NUMS[pos_j]))
+                    if 0 <= pos_j + 1 <= 7:
+                        possible_moves.append((LETTERS[pos_i - 1], NUMS[pos_j + 1]))
+                    if 0 <= pos_j - 1 <= 7:
+                        possible_moves.append((LETTERS[pos_i - 1], NUMS[pos_j - 1]))
+                
+                if 0 <= pos_j + 1 <= 7:
+                        possible_moves.append((LETTERS[pos_i], NUMS[pos_j + 1]))
+                if 0 <= pos_j - 1 <= 7:
+                    possible_moves.append((LETTERS[pos_i], NUMS[pos_j - 1]))
+
+                if not piece.moved:
+                    # TODO(marilius): рокировка
+                    ...
         
         def f(x) -> bool:
             i, j = x
@@ -231,13 +253,26 @@ test = Board()
 # print(test.get_possible_moves('e', '2'))
 
 # rook
+# test.print()
+# print(test.move('a', '2', 'a', '4'))
+# test.print()
+# print(test.move('a', '1', 'a', '3'))
+# test.print()
+# print(test.move('a', '3', 'b', '3'))
+# test.print()
+# print(test.move('b', '3', 'b', '4'))
+# test.print()
+# print(test.get_possible_moves('b', '4'))
+
+
+# king
 test.print()
-print(test.move('a', '2', 'a', '4'))
+print(test.move('e', '2', 'e', '4'))
 test.print()
-print(test.move('a', '1', 'a', '3'))
+print(test.move('e', '1', 'e', '2'))
 test.print()
-print(test.move('a', '3', 'b', '3'))
+print(test.move('e', '2', 'e', '3'))
 test.print()
-print(test.move('b', '3', 'b', '4'))
+print(test.move('e', '3', 'd', '4'))
 test.print()
-print(test.get_possible_moves('b', '4'))
+print(test.get_possible_moves('d', '4'))
