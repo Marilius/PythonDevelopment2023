@@ -130,6 +130,32 @@ class Board:
                         if isinstance(self.curr_board[(LETTERS[pos_i - d], NUMS[pos_j - d])], BasePiece):
                             break
 
+            case 'R':  # rook
+                pos_i, pos_j = LETTERS.find(i), NUMS.find(j)
+                for d in range(1, 8):
+                    if 0 <= pos_i + d <= 7:
+                        possible_moves.append((LETTERS[pos_i + d], j))
+                        if isinstance(self.curr_board[(LETTERS[pos_i + d], j)], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_i - d <= 7:
+                        possible_moves.append((LETTERS[pos_i - d], j))
+                        if isinstance(self.curr_board[(LETTERS[pos_i - d], j)], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_j + d <= 7:
+                        possible_moves.append((i, NUMS[pos_j + d]))
+                        if isinstance(self.curr_board[(i, NUMS[pos_j + d])], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_j - d <= 7:
+                        possible_moves.append((i, NUMS[pos_j - d]))
+                        if isinstance(self.curr_board[(i, NUMS[pos_j - d])], BasePiece):
+                            break
+        
         def f(x) -> bool:
             i, j = x
 
@@ -178,6 +204,8 @@ class Board:
 
 
 test = Board()
+
+# pawns and knight
 # test.print()
 # print(test.move('e', '2', 'e', '4'))
 # test.print()
@@ -192,11 +220,24 @@ test = Board()
 # test.print()
 # test.get_possible_moves('b', '2')
 
+# bishop
+# test.print()
+# print(test.move('e', '2', 'e', '4'))
+# test.print()
+# print(test.move('f', '1', 'c', '4'))
+# test.print()
+# print(test.move('c', '4', 'e', '2'))
+# test.print()
+# print(test.get_possible_moves('e', '2'))
+
+# rook
 test.print()
-print(test.move('e', '2', 'e', '4'))
+print(test.move('a', '2', 'a', '4'))
 test.print()
-print(test.move('f', '1', 'c', '4'))
+print(test.move('a', '1', 'a', '3'))
 test.print()
-print(test.move('c', '4', 'e', '2'))
+print(test.move('a', '3', 'b', '3'))
 test.print()
-print(test.get_possible_moves('e', '2'))
+print(test.move('b', '3', 'b', '4'))
+test.print()
+print(test.get_possible_moves('b', '4'))
