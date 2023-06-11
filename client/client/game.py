@@ -1,10 +1,5 @@
 import pygame
 
-
-pygame.init()
-screen_width = 750
-screen_height = 450
-screen = pygame.display.set_mode((screen_width, screen_height))
 obstacle_x = 400
 obstacle_y = 400
 obstacle_width = 40
@@ -13,41 +8,80 @@ player_x = 200
 player_y = 400
 player_width = 20
 player_height = 20
-game_state = "start_menu"
+
+class ChessGame():
+    #game_state: start_menu, game, game_over
+    def __init__(self, **kwargs):
+        pygame.init()
+        self.screen_shape = (750, 450)
+        self.screen = pygame.display.set_mode(self.screen_shape)
+        self.game_state = "start_menu"
+        self.draw_start_menu()
+    
+    def draw_start_menu(self):
+        self.screen.fill((0, 0, 0))
+        font = pygame.font.SysFont('arial', 50)
+        title = font.render('Chess', True, (255, 255, 255))
+        start_button = Button(pos=(self.screen_shape[0] // 2, 300), text="Start", font=30)
+        start_button.show(self.screen)
+        self.screen.blit(title, (self.screen_shape[0]/2 - title.get_width()/2, 100))
+        pygame.display.update()
+
+    def run(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.draw_game_over()
+
+    
+    def draw_game_over(self):
+        self.screen.fill((0, 0, 0))
+        font = pygame.font.SysFont('arial', 40)
+        title = font.render('Game Over', True, (255, 255, 255))
+        self.screen.blit(title, (self.screen_shape[0]/2 - title.get_width()/2, self.screen_shape[1]/2 - title.get_height()/3))
+        self.game_state = "game_over"
+        pygame.display.update()
 
 
-def draw_start_menu():
-    screen.fill((0, 0, 0))
-    font = pygame.font.SysFont('arial', 40)
-    title = font.render('My Game', True, (255, 255, 255))
-    start_button = font.render('Start', True, (255, 255, 255))
-    screen.blit(title, (screen_width/2 - title.get_width()/2, screen_height/2 - title.get_height()/2))
-    screen.blit(start_button, (screen_width/2 - start_button.get_width()/2, screen_height/2 + start_button.get_height()/2))
-    pygame.display.update()
+class Button():
+    def __init__(self, pos=None, text=None, font=30, **kwargs):
+        self.x, self.y = pos
+        self.font = pygame.font.SysFont("Arial", font)
+        self.size = (kwargs['size'] if 'size' in kwargs else None)
+        self.draw_text(text, **kwargs)
+
+    def draw_text(self, text, colour='white', background='black', **kwargs):
+        self.text = self.font.render(text, True, pygame.Color(colour))
+        #check outer size !
+        self.size = self.text.get_size() 
+        self.surface = pygame.Surface(self.size)
+        self.surface.fill(background)
+        self.surface.blit(self.text, (0, 0))
+    
+    def show(self, screen):
+        screen.blit(self.surface, (self.x - self.size[0] // 2, self.y - self.size[1] // 2))
+        
 
 
-def draw_game_over_screen():
-    screen.fill((0, 0, 0))
-    font = pygame.font.SysFont('arial', 40)
-    title = font.render('Game Over', True, (255, 255, 255))
-    restart_button = font.render('R - Restart', True, (255, 255, 255))
-    quit_button = font.render('Q - Quit', True, (255, 255, 255))
-    screen.blit(title, (screen_width/2 - title.get_width()/2, screen_height/2 - title.get_height()/3))
-    screen.blit(restart_button, (screen_width/2 - restart_button.get_width()/2, screen_height/1.9 + restart_button.get_height()))
-    screen.blit(quit_button, (screen_width/2 - quit_button.get_width()/2, screen_height/2 + quit_button.get_height()/2))
-    pygame.display.update()
 
 
 def game() -> None:
+    ChessGame().run()
+
+
+def game_() -> None:
     global game_state
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+        keys = pygame.key.get_pressed()
         if game_state == "start_menu":
             draw_start_menu()
-            keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
                 player_x = 200
                 player_y = 400
@@ -55,7 +89,6 @@ def game() -> None:
                 game_over = False
         elif game_state == "game_over":
             draw_game_over_screen()
-            keys = pygame.key.get_pressed()
             if keys[pygame.K_r]:
                 game_state = "start_menu"
             if keys[pygame.K_q]:
@@ -63,7 +96,6 @@ def game() -> None:
                 quit()
 
         elif game_state == "game":
-            keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT]:
                 player_x -= 1
             if keys[pygame.K_RIGHT]:
