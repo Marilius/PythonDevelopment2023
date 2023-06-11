@@ -45,6 +45,11 @@ class Board:
 
                 self.prev_board = self.curr_board.copy()
 
+    @staticmethod
+    def check(board) -> list[str]:
+        ...
+        return []
+
     def get_possible_moves(self, i: str, j: str) -> list[tuple[str, str]]:
         # TODO(marilius): en passant, рокировка, шах
         if not isinstance(self.curr_board[(i, j)], BasePiece):
@@ -62,10 +67,10 @@ class Board:
                 else:
                     d = -1
 
-                if not isinstance(self.curr_board[(i , NUMS[NUMS.find(j) + d * 1])], BasePiece):
+                if not isinstance(self.curr_board[(i, NUMS[NUMS.find(j) + d * 1])], BasePiece):
                     possible_moves.append((i, NUMS[NUMS.find(j) + d * 1]))
 
-                    if not piece.moved and not isinstance(self.curr_board[(i , NUMS[NUMS.find(j) + d * 2])], BasePiece):
+                    if not piece.moved and not isinstance(self.curr_board[(i, NUMS[NUMS.find(j) + d * 2])], BasePiece):
                         possible_moves.append((i, NUMS[NUMS.find(j) + d * 2]))
 
                 pos_j0 = NUMS.find(j) + d * 1
@@ -114,13 +119,13 @@ class Board:
                         possible_moves.append((LETTERS[pos_i - d], NUMS[pos_j + d]))
                         if isinstance(self.curr_board[(LETTERS[pos_i - d], NUMS[pos_j + d])], BasePiece):
                             break
-                
+
                 for d in range(1, 8):
                     if 0 <= pos_i + d <= 7 and 0 <= pos_j - d <= 7:
                         possible_moves.append((LETTERS[pos_i + d], NUMS[pos_j - d]))
                         if isinstance(self.curr_board[(LETTERS[pos_i + d], NUMS[pos_j - d])], BasePiece):
                             break
-                
+
                 for d in range(1, 8):
                     if 0 <= pos_i - d <= 7 and 0 <= pos_j - d <= 7:
                         possible_moves.append((LETTERS[pos_i - d], NUMS[pos_j - d]))
@@ -153,6 +158,56 @@ class Board:
                         if isinstance(self.curr_board[(i, NUMS[pos_j - d])], BasePiece):
                             break
 
+            case 'Q':  # Queen
+                pos_i, pos_j = LETTERS.find(i), NUMS.find(j)
+                for d in range(1, 8):
+                    if 0 <= pos_i + d <= 7:
+                        possible_moves.append((LETTERS[pos_i + d], j))
+                        if isinstance(self.curr_board[(LETTERS[pos_i + d], j)], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_i - d <= 7:
+                        possible_moves.append((LETTERS[pos_i - d], j))
+                        if isinstance(self.curr_board[(LETTERS[pos_i - d], j)], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_j + d <= 7:
+                        possible_moves.append((i, NUMS[pos_j + d]))
+                        if isinstance(self.curr_board[(i, NUMS[pos_j + d])], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_j - d <= 7:
+                        possible_moves.append((i, NUMS[pos_j - d]))
+                        if isinstance(self.curr_board[(i, NUMS[pos_j - d])], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_i + d <= 7 and 0 <= pos_j + d <= 7:
+                        possible_moves.append((LETTERS[pos_i + d], NUMS[pos_j + d]))
+                        if isinstance(self.curr_board[(LETTERS[pos_i + d], NUMS[pos_j + d])], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_i - d <= 7 and 0 <= pos_j + d <= 7:
+                        possible_moves.append((LETTERS[pos_i - d], NUMS[pos_j + d]))
+                        if isinstance(self.curr_board[(LETTERS[pos_i - d], NUMS[pos_j + d])], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_i + d <= 7 and 0 <= pos_j - d <= 7:
+                        possible_moves.append((LETTERS[pos_i + d], NUMS[pos_j - d]))
+                        if isinstance(self.curr_board[(LETTERS[pos_i + d], NUMS[pos_j - d])], BasePiece):
+                            break
+
+                for d in range(1, 8):
+                    if 0 <= pos_i - d <= 7 and 0 <= pos_j - d <= 7:
+                        possible_moves.append((LETTERS[pos_i - d], NUMS[pos_j - d]))
+                        if isinstance(self.curr_board[(LETTERS[pos_i - d], NUMS[pos_j - d])], BasePiece):
+                            break
+
             case 'K':  # king
                 pos_i, pos_j = LETTERS.find(i), NUMS.find(j)
                 if 0 <= pos_i + 1 <= 7:
@@ -161,24 +216,24 @@ class Board:
                         possible_moves.append((LETTERS[pos_i + 1], NUMS[pos_j + 1]))
                     if 0 <= pos_j - 1 <= 7:
                         possible_moves.append((LETTERS[pos_i + 1], NUMS[pos_j - 1]))
-                
+
                 if 0 <= pos_i - 1 <= 7:
                     possible_moves.append((LETTERS[pos_i - 1], NUMS[pos_j]))
                     if 0 <= pos_j + 1 <= 7:
                         possible_moves.append((LETTERS[pos_i - 1], NUMS[pos_j + 1]))
                     if 0 <= pos_j - 1 <= 7:
                         possible_moves.append((LETTERS[pos_i - 1], NUMS[pos_j - 1]))
-                
+
                 if 0 <= pos_j + 1 <= 7:
-                        possible_moves.append((LETTERS[pos_i], NUMS[pos_j + 1]))
+                    possible_moves.append((LETTERS[pos_i], NUMS[pos_j + 1]))
                 if 0 <= pos_j - 1 <= 7:
                     possible_moves.append((LETTERS[pos_i], NUMS[pos_j - 1]))
 
                 if not piece.moved:
                     # TODO(marilius): рокировка
                     ...
-        
-        def f(x) -> bool:
+
+        def f(x: tuple[str, str]) -> bool:
             i, j = x
 
             # фигура того же цвета
@@ -188,7 +243,21 @@ class Board:
 
             return True
 
+        def under_check(x: tuple[str, str]) -> bool:
+            i1, j1 = x
+
+            next_board = self.curr_board.copy()
+
+            next_board[(i1, j1)] = next_board[(i, j)]
+            next_board[(i, j)] = ' '
+
+            if color in self.check(next_board):
+                return False
+
+            return True
+
         possible_moves = list(filter(f, possible_moves))
+        possible_moves = list(filter(under_check, possible_moves))
 
         ans = possible_moves
         print(ans)
