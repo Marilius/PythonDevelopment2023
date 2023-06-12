@@ -21,4 +21,4 @@ build-backend = "setuptools.build_meta"
 chess-client = "client.__main__:run"
 
 [tool.setuptools.package-data]
-client = ["client/translation/ru/LC_MESSAGES/client.mo"]
+client = ["translation/*/*/*.mo"]

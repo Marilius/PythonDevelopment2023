@@ -4,9 +4,18 @@ import os
 import pygame
 
 
-translation_path = os.path.join(os.path.dirname(__file__), 'translation')
-translation = gettext.translation('client', translation_path, languages=['ru', 'en'], fallback=True)
-_, ngettext = translation.gettext, translation.ngettext
+translations_path = os.path.join(os.path.dirname(__file__), 'translation')
+print(f'\n\n{translations_path}\n\n')
+translations = {
+    'en_NG.UTF-8': gettext.translation('client', translations_path, languages=['en'], fallback=True),
+    'ru_RU.UTF-8': gettext.translation('client', translations_path, languages=['ru'])
+}
+
+# CURR_LOCALE = 'ru_RU.UTF-8'
+
+# gettext.install('client', translation_path)
+
+# _, ngettext = ru.gettext, ru.ngettext
 
 obstacle_x = 400
 obstacle_y = 400
@@ -41,14 +50,14 @@ class ChessGame():
     def draw_start_menu(self):
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 50)
-        title = font.render(_('Chess'), True, (255, 255, 255))
+        title = font.render(_('Chess'), True, (255, 255, 255))  # noqa: F821
         self.screen.blit(title, (self.screen_shape[0]/2 - title.get_width()/2, 100))
 
-        start_button_hotseat = Button(pos=(self.screen_shape[0] // 4, 300), text=_('Start hotseat'), font=30)
+        start_button_hotseat = Button(pos=(self.screen_shape[0] // 4, 300), text=_('Start hotseat'), font=30)  # noqa: F821
         start_button_hotseat.show(self.screen)
-        create_room_button = Button(pos=(self.screen_shape[0] // 2, 300), text=_('Create room'), font=30)
+        create_room_button = Button(pos=(self.screen_shape[0] // 2, 300), text=_('Create room'), font=30)  # noqa: F821
         create_room_button.show(self.screen)
-        join_room_button = Button(pos=(self.screen_shape[0] // 4 * 3, 300), text=_('Join room'), font=30)
+        join_room_button = Button(pos=(self.screen_shape[0] // 4 * 3, 300), text=_('Join room'), font=30)  # noqa: F821
         join_room_button.show(self.screen)
 
         self.buttons = dict()
@@ -81,7 +90,7 @@ class ChessGame():
     def draw_game_over(self):
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 40)
-        title = font.render(_('Game Over'), True, (255, 255, 255))
+        title = font.render(_('Game Over'), True, (255, 255, 255))  # noqa: F821
         self.screen.blit(title, (self.screen_shape[0]/2 - title.get_width()/2, self.screen_shape[1]/2 - title.get_height()/3))
         self.game_state = 'game_over'
         self.buttons = dict()
@@ -113,4 +122,7 @@ class Button():
 
 
 def game() -> None:
+    translations['ru_RU.UTF-8'].install()  # установка русского
+    # translations['en_NG.UTF-8'].install()  # установка английского
+
     ChessGame().run()
