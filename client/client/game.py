@@ -1,7 +1,12 @@
-# import gettext
+import gettext
+import os
 
 import pygame
 
+
+translation_path = os.path.join(os.path.dirname(__file__), 'translation')
+translation = gettext.translation('client', translation_path, languages=['ru', 'en'], fallback=True)
+_, ngettext = translation.gettext, translation.ngettext
 
 obstacle_x = 400
 obstacle_y = 400
@@ -29,27 +34,27 @@ class ChessGame():
         pygame.init()
         self.screen_shape = (750, 450)
         self.screen = pygame.display.set_mode(self.screen_shape)
-        self.game_state = "start_menu"
+        self.game_state = 'start_menu'
         self.buttons = dict()
         self.draw_start_menu()
 
     def draw_start_menu(self):
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 50)
-        title = font.render('Chess', True, (255, 255, 255))
+        title = font.render(_('Chess'), True, (255, 255, 255))
         self.screen.blit(title, (self.screen_shape[0]/2 - title.get_width()/2, 100))
 
-        start_button_hotseat = Button(pos=(self.screen_shape[0] // 4, 300), text="Start hotseat", font=30)
+        start_button_hotseat = Button(pos=(self.screen_shape[0] // 4, 300), text=_('Start hotseat'), font=30)
         start_button_hotseat.show(self.screen)
-        create_room_button = Button(pos=(self.screen_shape[0] // 2, 300), text="Create room", font=30)
+        create_room_button = Button(pos=(self.screen_shape[0] // 2, 300), text=_('Create room'), font=30)
         create_room_button.show(self.screen)
-        join_room_button = Button(pos=(self.screen_shape[0] // 4 * 3, 300), text="Join room", font=30)
+        join_room_button = Button(pos=(self.screen_shape[0] // 4 * 3, 300), text=_('Join room'), font=30)
         join_room_button.show(self.screen)
 
         self.buttons = dict()
-        self.buttons["start_hotseat"] = start_button_hotseat
-        self.buttons["create_room"] = create_room_button
-        self.buttons["join_room"] = join_room_button
+        self.buttons['start_hotseat'] = start_button_hotseat
+        self.buttons['create_room'] = create_room_button
+        self.buttons['join_room'] = join_room_button
         pygame.display.update()
 
     def run(self):
@@ -58,13 +63,13 @@ class ChessGame():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-                elif self.game_state == "start_menu":
-                    if self.buttons["start_hotseat"].clicked(event):
+                elif self.game_state == 'start_menu':
+                    if self.buttons['start_hotseat'].clicked(event):
                         self.draw_game()
-                        self.game_type = "hotseat"
-                    elif self.buttons["create_room"].clicked(event):
+                        self.game_type = 'hotseat'
+                    elif self.buttons['create_room'].clicked(event):
                         self.draw_new_room()
-                    elif self.buttons["join_room"].clicked(event):
+                    elif self.buttons['join_room'].clicked(event):
                         self.draw_join_room()
 
     def draw_new_room(self):
@@ -76,9 +81,9 @@ class ChessGame():
     def draw_game_over(self):
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 40)
-        title = font.render('Game Over', True, (255, 255, 255))
+        title = font.render(_('Game Over'), True, (255, 255, 255))
         self.screen.blit(title, (self.screen_shape[0]/2 - title.get_width()/2, self.screen_shape[1]/2 - title.get_height()/3))
-        self.game_state = "game_over"
+        self.game_state = 'game_over'
         self.buttons = dict()
         pygame.display.update()
 
@@ -86,7 +91,7 @@ class ChessGame():
 class Button():
     def __init__(self, pos=None, text=None, font=30, **kwargs):
         self.x, self.y = pos
-        self.font = pygame.font.SysFont("Arial", font)
+        self.font = pygame.font.SysFont('Arial', font)
         self.size = (kwargs['size'] if 'size' in kwargs else None)
         self.draw_text(text, **kwargs)
 
