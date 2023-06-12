@@ -5,14 +5,18 @@ import shutil
 DOIT_CONFIG = {'default_tasks': ['html']}
 
 
+def task_codestyle():
+    return {
+        'actions': ['flake8'],
+    }
+
+
 def task_test():
     """Test"""
     return {
-        'actions': None,
-        # 'actions': ['python -m unittest -v'],
-        # 'file_dep': ['tests/test_server.py'],
+        'actions': ['python -m unittest -v'],
         # 'task_dep': ['i18n'],
-        # 'clean': True,
+        'clean': True,
     }
 
 
