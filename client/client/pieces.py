@@ -1,4 +1,6 @@
 class BasePiece:
+    """class represents chess pieces
+    """
     def __init__(self, name: str, color: str) -> None:
         self.name = name
         self.color = color
@@ -16,4 +18,9 @@ class BasePiece:
 
 
 class NotPieceException(Exception):
+    """field is empty
+
+    :param Exception: _description_
+    :type Exception: _type_
+    """
     ...

@@ -11,6 +11,34 @@ def task_codestyle():
     }
 
 
+def task_pot():
+	"""Extract translation"""
+	return {
+		'actions': ['pybabel extract --input-dirs client/client -o client/client/client.pot'],
+		'targets': ['client/client/client.pot'],
+		'clean': True,
+		}
+
+def task_po():
+	"""Update translation"""
+	return {
+		'actions': ['pybabel update -D client -d client/client/po -i client/client/client.pot'],
+		'file_dep': ['client/client/client.pot'],
+		'targets': ['client/client/po/ru/LC_MESSAGES/client.po'],
+		'clean': True,
+		}
+
+
+def task_i18n():
+    """Compile translations"""
+    return {
+        'actions': ['pybabel compile -d client/client/translation -D client'],
+        'file_dep': ['client/client/translation/ru/LC_MESSAGES/client.po'],
+        'targets': ['client/client/translation/ru/LC_MESSAGES/client.mo'],
+        # 'clean': True,
+    }
+
+
 def task_html():
     """Build html documentation"""
     return {
@@ -34,11 +62,11 @@ def task_whlserver():
     """Make server whl"""
     return {
         'actions': None,
-        # 'actions': ['python3 -m build -n -w moodserver'],
+        # 'actions': ['python3 -m build -n -w client'],
         # 'task_dep': ['i18n'],
-        # 'file_dep': ['moodserver/pyproject.toml', 'moodserver/moodserver/translation/ru/LC_MESSAGES/moodserver.mo'],
-        # 'targets': ['moodserver/dist/*.whl'],
-        # 'clean': [lambda: shutil.rmtree('moodserver/dist'), lambda: shutil.rmtree('moodserver/build'), lambda: shutil.rmtree('moodserver/MoodServer.egg-info')],
+        # 'file_dep': ['client/pyproject.toml', 'client/client/translation/ru/LC_MESSAGES/client.mo'],
+        # 'targets': ['client/dist/*.whl'],
+        # 'clean': [lambda: shutil.rmtree('client/dist'), lambda: shutil.rmtree('client/build'), lambda: shutil.rmtree('client/client.egg-info')],
     }
 
 
@@ -58,7 +86,7 @@ def task_whl():
         'actions': None,
         'task_dep': ['whlserver', 'whlclient'],
         'clean': [
-            lambda: shutil.rmtree('moodclient/dist'), lambda: shutil.rmtree('moodclient/build'), lambda: shutil.rmtree('moodclient/MoodClient.egg-info'),
-            lambda: shutil.rmtree('moodserver/dist'), lambda: shutil.rmtree('moodserver/build'), lambda: shutil.rmtree('moodserver/MoodServer.egg-info'),
+            lambda: shutil.rmtree('client/dist'), lambda: shutil.rmtree('client/build'), lambda: shutil.rmtree('client/ChessClient.egg-info'),
+            lambda: shutil.rmtree('client/dist'), lambda: shutil.rmtree('client/build'), lambda: shutil.rmtree('client/ChessServer.egg-info'),
         ],
     }
