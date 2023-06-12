@@ -22,7 +22,7 @@ def task_pot():
 def task_po():
 	"""Update translation"""
 	return {
-		'actions': ['pybabel update -D client -d client/client/po -i client/client/client.pot'],
+		'actions': ['pybabel update -D client -d client/client/translation -i client/client/client.pot'],
 		'file_dep': ['client/client/client.pot'],
 		'targets': ['client/client/po/ru/LC_MESSAGES/client.po'],
 		'clean': True,
