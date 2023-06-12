@@ -1,3 +1,8 @@
+"""
+Chess piece realisation.
+"""
+
+
 class BasePiece:
     """class represents chess pieces
     """

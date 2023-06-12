@@ -1,3 +1,6 @@
+"""
+Chess board realisation.
+"""
 from client.client.pieces import BasePiece, NotPieceException
 
 

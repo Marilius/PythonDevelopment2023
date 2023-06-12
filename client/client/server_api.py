@@ -1,3 +1,8 @@
+"""
+API for server realisation.
+"""
+
+
 import readline
 import socket
 
@@ -27,12 +32,16 @@ class ServerAPI:
         """
         self.socket.send(f'{msg}\n'.encode())
 
-    def receive(self):
+    def receive(self) -> tuple[str, str, str, str]:
         """receive message
+
+        :return: enemy move
+        :rtype: tuple[str, str, str, str]
         """
         # TODO(marilius): распарить + порядок сообщений?
-        while True:
-            responses = self.socket.recv(self.buffer_size).decode()
-            for response in responses.split('\n'):
-                if response:
-                    print(f'\r{response}\n{readline.get_line_buffer()}', end='', flush=True)
+
+        responses = self.socket.recv(self.buffer_size).decode()
+        print(responses)
+        for response in responses.split('\n'):
+            if response:
+                print(f'\r{response}\n{readline.get_line_buffer()}', end='', flush=True)
