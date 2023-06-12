@@ -11,12 +11,6 @@ translations = {
     'ru_RU.UTF-8': gettext.translation('client', translations_path, languages=['ru'])
 }
 
-# CURR_LOCALE = 'ru_RU.UTF-8'
-
-# gettext.install('client', translation_path)
-
-# _, ngettext = ru.gettext, ru.ngettext
-
 obstacle_x = 400
 obstacle_y = 400
 obstacle_width = 40
