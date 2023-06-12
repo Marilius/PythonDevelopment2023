@@ -62,11 +62,10 @@ def task_test():
 def task_whlserver():
     """Make server whl"""
     return {
-        'actions': None,
-        # 'actions': ['python3 -m build -n -w client'],
-        # 'file_dep': ['client/pyproject.toml', 'client/client/translation/ru/LC_MESSAGES/client.mo'],
-        # 'targets': ['client/dist/*.whl'],
-        # 'clean': [lambda: shutil.rmtree('client/dist'), lambda: shutil.rmtree('client/build'), lambda: shutil.rmtree('client/client.egg-info')],
+        'actions': ['python -m build -n -w server'],
+        'file_dep': ['server/pyproject.toml'],
+        'targets': ['server/dist/*.whl'],
+        'clean': [lambda: shutil.rmtree('server/dist'), lambda: shutil.rmtree('server/build'), lambda: shutil.rmtree('server/ChessServer.egg-info')],
     }
 
 

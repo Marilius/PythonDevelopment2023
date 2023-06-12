@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-12 18:21+0300\n"
+"POT-Creation-Date: 2023-06-12 23:52+0300\n"
 "PO-Revision-Date: 2023-05-30 11:18+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,23 +19,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: client/client/game.py:53
+#: client/client/game.py:47
 msgid "Chess"
 msgstr "Шахматы"
 
-#: client/client/game.py:56
+#: client/client/game.py:50
 msgid "Start hotseat"
 msgstr "Хотсит"
 
-#: client/client/game.py:58
+#: client/client/game.py:52
 msgid "Create room"
 msgstr "Создать комнату"
 
-#: client/client/game.py:60
+#: client/client/game.py:54
 msgid "Join room"
 msgstr "Войти в комнату"
 
-#: client/client/game.py:93
+#: client/client/game.py:87
 msgid "Game Over"
 msgstr "Игра окончена"
 

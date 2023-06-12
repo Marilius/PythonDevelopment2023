@@ -2,6 +2,7 @@
 build/
 dist/
 Chess_client.egg-info/
+Chess_server.egg-info/
 
 __pycache__/
 
