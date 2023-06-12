@@ -6,6 +6,9 @@ LETTERS = 'abcdefgh'
 
 
 class Board:
+    """
+    Board for chess game
+    """
     def __init__(self) -> None:
         self.turn = 1
         self.curr_board = {}

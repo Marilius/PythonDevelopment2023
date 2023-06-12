@@ -11,6 +11,16 @@ def task_codestyle():
     }
 
 
+def task_html():
+    """Build html documentation"""
+    return {
+        'actions': ['sphinx-build docs/source docs/build'],
+        # 'task_dep': ['i18n'],
+        'targets': ['docs/build'],
+        'clean': [clean_targets, lambda: shutil.rmtree('docs/build')]
+    }
+
+
 def task_test():
     """Test"""
     return {
