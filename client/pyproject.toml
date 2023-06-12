@@ -6,7 +6,7 @@ requires-python = ">=3.10"
 authors = [{name = "Basalov Iaroslav", email = "s02200273@gse.cs.msu.ru"}]
 keywords = ["chess", "client"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5",
     "Programming Language :: Python :: 3",
 ]
 
@@ -19,3 +19,6 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 chess-client = "client.__main__:run"
+
+[tool.setuptools.package-data]
+client = ["client/translation/ru/LC_MESSAGES/client.mo"]

@@ -14,10 +14,10 @@ def task_codestyle():
 def task_pot():
     """Extract translation"""
     return {
-        'actions': ['pybabel extract --input-dirs client/client -o client/client/client.pot'],
+        'actions': ['pybabel extract --input-dir client/client -o client/client/client.pot'],
         'targets': ['client/client/client.pot'],
         'clean': True,
-        }
+    }
 
 
 def task_po():
@@ -27,7 +27,7 @@ def task_po():
         'file_dep': ['client/client/client.pot'],
         'targets': ['client/client/po/ru/LC_MESSAGES/client.po'],
         'clean': True,
-        }
+    }
 
 
 def task_i18n():
