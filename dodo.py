@@ -11,21 +11,21 @@ def task_codestyle():
     }
 
 
-def task_pot():
+def task_extract():
     """Extract translation"""
     return {
-        'actions': ['pybabel extract --input-dir client/client -o client/client/client.pot'],
-        'targets': ['client/client/client.pot'],
+        'actions': ['pybabel extract --input-dir client/client -o client/client/translation/client.pot'],
+        'targets': ['client/client/translation/client.pot'],
         'clean': True,
     }
 
 
-def task_po():
+def task_update():
     """Update translation"""
     return {
-        'actions': ['pybabel update -D client -d client/client/translation -i client/client/client.pot'],
-        'file_dep': ['client/client/client.pot'],
-        'targets': ['client/client/po/ru/LC_MESSAGES/client.po'],
+        'actions': ['pybabel update -D client -d client/client/translation -i client/client/translation/client.pot'],
+        'file_dep': ['client/client/translation/client.pot'],
+        'targets': ['client/client/translation/ru/LC_MESSAGES/client.po'],
         'clean': True,
     }
 
