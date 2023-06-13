@@ -3,6 +3,8 @@ import os
 
 import pygame
 
+from .server_api import ServerAPI
+
 
 translations_path = os.path.join(os.path.dirname(__file__), 'translation')
 print(f'\n\n{translations_path}\n\n')
@@ -119,4 +121,7 @@ def game() -> None:
     translations['ru_RU.UTF-8'].install()  # установка русского
     # translations['en_NG.UTF-8'].install()  # установка английского
 
-    ChessGame().run()
+    # ChessGame().run()
+
+
+

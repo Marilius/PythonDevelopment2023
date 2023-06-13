@@ -106,7 +106,7 @@ class Server:
 async def start_game() -> None:
     """Initiate server."""
     server = Server()
-    playing_server = await asyncio.start_server(server.run, 'localhost', 8080)
+    playing_server = await asyncio.start_server(server.run, 'localhost', 1337)
     async with playing_server:
         await playing_server.serve_forever()
 
