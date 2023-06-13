@@ -39,7 +39,7 @@ class Server:
                         send = asyncio.create_task(reader.readline())
                         data = task.result().decode().strip()
 
-                        logging.INFO('received: %s', data)
+                        logging.info('received: %s', data)
 
                         match shlex.split(data):
                             case ['login', login]:
@@ -116,5 +116,5 @@ async def start_game() -> None:
 def main() -> None:
     """entering point
     """
-    logging.INFO('\n\n started \n\n')
+    logging.info('\n\n started \n\n')
     asyncio.run(start_game())
