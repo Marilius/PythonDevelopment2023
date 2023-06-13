@@ -78,7 +78,7 @@ class Server:
                                 if room == curr_room:
                                     q = self.clients[id_]
                                     if q is not personal_queue:
-                                        logging.DEBUG('Sending "%s" to %s', to_other, id_)
+                                        logging.debug('Sending "%s" to %s', to_other, id_)
                                         await q.put(to_other)
                                     break
 
