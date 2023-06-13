@@ -6,7 +6,7 @@ Server
 
 server.py
 =========
-.. automodule:: server.server
+.. automodule:: server
    :members:
    :private-members:
 
