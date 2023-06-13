@@ -8,9 +8,9 @@ import sys
 
 import pygame
 
-from .board import Board
-from .pieces import BasePiece
-from .server_api import ServerAPI
+from client.client.board import Board
+from client.client.pieces import BasePiece
+from client.client.server_api import ServerAPI
 
 
 translations_path = os.path.join(os.path.dirname(__file__), 'translation')
