@@ -180,4 +180,5 @@ def game() -> None:
     # translations['en_NG.UTF-8'].install()  # установка английского
 
     server_api = ServerAPI()
-    server_api.send()
+    server_api.send('login Marlius')
+    server_api.send('move e 2 e 4')

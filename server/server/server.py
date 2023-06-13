@@ -99,13 +99,13 @@ class Server:
             writer.close()
             await writer.wait_closed()
         except Exception as e:
-            print(e)
+            logging.error('%s', str(e))
 
-        if ID in self._clients.keys():
-            del self._clients[ID]
-            message_to_users = Message('other_left', [ID])
-            for other_ID, q in self._clients.items():
-                await q.put(self.translate(other_ID, message_to_users))
+        # if ID in self._clients.keys():
+        #     del self._clients[ID]
+        #     message_to_users = Message('other_left', [ID])
+        #     for other_ID, q in self._clients.items():
+        #         await q.put(self.translate(other_ID, message_to_users))
 
 
 async def start_game() -> None:
@@ -119,5 +119,5 @@ async def start_game() -> None:
 def main() -> None:
     """entering point
     """
-    logging.info('\n\n started \n\n')
+    logging.info('Server started')
     asyncio.run(start_game())
