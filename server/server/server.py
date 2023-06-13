@@ -46,7 +46,9 @@ class Server:
                         match shlex.split(data):
                             case ['login', login]:
                                 if login in self.clients.keys():
-                                    response = 'This login is taken'
+                                    writer.write('connection refused'.encode())
+                                    await writer.drain()
+                                    continue
                                 else:
                                     ID = login
                                     self.clients[ID] = personal_queue

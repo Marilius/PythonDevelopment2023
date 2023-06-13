@@ -55,9 +55,9 @@ class ChessGame():
         :type login: str
         """
         self.login = login
+        self.locale = 'en_NG.UTF-8'
 
         self.server_api = ServerAPI()
-        self.server_api.send('')
         self.server_api.send(f'login {login}')
         self.server_api.send('new')
         print(f'\n\n{self.server_api.receive()}\n\n')
@@ -73,6 +73,7 @@ class ChessGame():
     def draw_start_menu(self) -> None:
         """_summary_
         """
+        translations[self.locale].install()
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 50)
         title = font.render(_('Chess'), True, (255, 255, 255))  # noqa: F821
@@ -121,6 +122,7 @@ class ChessGame():
     def draw_game_over(self) -> None:
         """_summary_
         """
+        translations[self.locale].install()
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 40)
         title = font.render(_('Game Over'), True, (255, 255, 255))  # noqa: F821
@@ -188,10 +190,10 @@ class Button():
     def set_russian(self) -> None:
         """_summary_
         """
-        translations['ru_RU.UTF-8'].install()
+        self.locale = 'ru_RU.UTF-8'
 
     def set_english(self) -> None:
-        translations['en_NG.UTF-8'].install()
+        self.locale = 'en_NG.UTF-8'
 
 
 def game() -> None:
