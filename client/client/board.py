@@ -1,7 +1,7 @@
 """
 Chess board realisation.
 """
-from pieces import BasePiece, NotPieceException
+from client.client.pieces import BasePiece, NotPieceException
 
 
 NUMS = '12345678'
