@@ -10,7 +10,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 
-dependencies = ["pygame"]
+dependencies = ["pygame", "pyreadline3"]
 
 [project.urls]
 repository = "https://github.com/Marilius/PythonDevelopment2023"
