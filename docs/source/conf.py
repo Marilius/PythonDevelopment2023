@@ -7,6 +7,7 @@ import sys
 import os
 sys.path.append(os.path.abspath('../..'))
 sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
