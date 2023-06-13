@@ -7,7 +7,7 @@ import random
 import shlex
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 class Server:
@@ -78,13 +78,13 @@ class Server:
                                 if room == curr_room:
                                     q = self.clients[id_]
                                     if q is not personal_queue:
-                                        logging.debug('Sending "%s" to %s', to_other, id_)
+                                        logging.info('Sending "%s" to %s', to_other, id_)
                                         await q.put(to_other)
                                     break
 
                         if response:
                             q = self.clients[ID]
-                            logging.DEBUG('Sending "%s" to %s', response, ID)
+                            logging.info('Sending "%s" to %s', response, ID)
                             await q.put(to_other)
                             # for other_ID, q in self._clients.items():
                             #     if q is not personal_queue:
