@@ -3,7 +3,6 @@ API for server realisation.
 """
 
 
-import readline
 import socket
 
 
@@ -36,13 +35,7 @@ class ServerAPI:
         """receive message
 
         :return: enemy move
-        :rtype: tuple[str, str, str, str]
+        :rtype: str
         """
-        # TODO(marilius): распарить + порядок сообщений?
-
-        responses = self.socket.recv(self.buffer_size).decode()
-        print(responses)
-        return responses
-        # for response in responses.split('\n'):
-        #     if response:
-        #         print(f'\r{response}\n{readline.get_line_buffer()}', end='', flush=True)
+        ans = self.socket.recv(self.buffer_size).decode().strip()
+        return ans

@@ -4,6 +4,7 @@
 
 import gettext
 import os
+import sys
 
 import pygame
 
@@ -47,9 +48,21 @@ class ChessGame():
     """_summary_
     """
     # game_state: start_menu, game, game_over
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, login: str, **kwargs) -> None:
         """_summary_
+
+        :param login: _description_
+        :type login: str
         """
+        self.login = login
+
+        self.server_api = ServerAPI()
+        self.server_api.send('')
+        self.server_api.send(f'login {login}')
+        self.server_api.send('new')
+        print(f'\n\n{self.server_api.receive()}\n\n')
+        self.server_api.send('move e 2 e 4')
+
         pygame.init()
         self.screen_shape = (750, 450)
         self.screen = pygame.display.set_mode(self.screen_shape)
@@ -172,15 +185,17 @@ class Button():
         x, y = pygame.mouse.get_pos()
         return event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0] and self.rect.collidepoint(x, y)
 
+    def set_russian(self) -> None:
+        """_summary_
+        """
+        translations['ru_RU.UTF-8'].install()
+
+    def set_english(self) -> None:
+        translations['en_NG.UTF-8'].install()
+
 
 def game() -> None:
     """_summary_
     """
-    translations['ru_RU.UTF-8'].install()  # установка русского
-    # translations['en_NG.UTF-8'].install()  # установка английского
-
-    server_api = ServerAPI()
-    server_api.send('login Marlius')
-    server_api.send('new')
-    # print(server_api.receive())
-    server_api.send('move e 2 e 4')
+    game = ChessGame(sys.argv[1])
+    game.run()
