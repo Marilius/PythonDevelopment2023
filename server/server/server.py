@@ -46,7 +46,7 @@ class Server:
 
                         match shlex.split(data):
                             case ['login', login]:
-                                if login in self._clients.keys():
+                                if login in self.clients.keys():
                                     response = 'This login is taken'
                                 else:
                                     ID = login
@@ -71,7 +71,7 @@ class Server:
                                 connected = False
                                 response = 'You are successfully left'
                             case _:
-                                ...
+                                logging.warning('Unknown command: %s', data)
 
                         if to_other:
                             curr_room = self.rooms[ID]
@@ -81,6 +81,10 @@ class Server:
                                     if q is not personal_queue:
                                         await q.put(to_other)
                                     break
+
+                        if response:
+                            q = self.clients[id_]
+                            await q.put(to_other)
                             # for other_ID, q in self._clients.items():
                             #     if q is not personal_queue:
                             #         lst = message_to_users if isinstance(message_to_users, list) else [message_to_users]
@@ -119,5 +123,5 @@ async def start_game() -> None:
 def main() -> None:
     """entering point
     """
-    logging.info('Server started')
+    logging.info('Starting server')
     asyncio.run(start_game())
