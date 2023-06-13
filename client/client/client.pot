@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-06-13 16:29+0300\n"
+"POT-Creation-Date: 2023-06-13 19:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: client/client/game.py:81
+#: client/client/game.py:77
 msgid "Chess"
 msgstr ""
 
-#: client/client/game.py:84
+#: client/client/game.py:80
 msgid "Start hotseat"
 msgstr ""
 
-#: client/client/game.py:86
+#: client/client/game.py:82
 msgid "Create room"
 msgstr ""
 
-#: client/client/game.py:88
+#: client/client/game.py:84
 msgid "Join room"
 msgstr ""
 
-#: client/client/game.py:130
+#: client/client/game.py:131
 msgid "Game Over"
 msgstr ""
 

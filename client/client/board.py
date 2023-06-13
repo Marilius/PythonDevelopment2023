@@ -1,7 +1,7 @@
 """
 Chess board realisation.
 """
-from client.client.pieces import BasePiece, NotPieceException
+from pieces import BasePiece, NotPieceException
 
 
 NUMS = '12345678'
@@ -382,7 +382,22 @@ class Board:
     def print(self) -> None:
         """prints current board state
         """
-        for j in reversed('12345678'):
-            for i in 'abcdefgh':
-                print(self.curr_board[(i, j)], end='')
+        def f(x) -> int:
+            if not isinstance(x, BasePiece):
+                return 30
+            if x.color == 'w':
+                return 30
+            else:
+                return 37
+
+        for j_pos, j in enumerate(reversed('12345678')):
+            for i_pos, i in enumerate('abcdefgh'):
+                s = self.curr_board[(i, j)]
+                if (j_pos + i_pos) % 2:
+                    print(f'\x1b[7;30;44m' + str(s) + '\x1b[0m', end='')
+                else:
+                    print(f'\x1b[5;30;44m' + str(s) + '\x1b[0m', end='')
             print()
+
+# test = Board()
+# test.print()

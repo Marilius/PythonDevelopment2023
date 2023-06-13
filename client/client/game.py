@@ -8,6 +8,8 @@ import sys
 
 import pygame
 
+from .board import Board
+from .pieces import BasePiece
 from .server_api import ServerAPI
 
 
@@ -16,15 +18,6 @@ translations = {
     'en_NG.UTF-8': gettext.translation('client', translations_path, languages=['en'], fallback=True),
     'ru_RU.UTF-8': gettext.translation('client', translations_path, languages=['ru'])
 }
-
-obstacle_x = 400
-obstacle_y = 400
-obstacle_width = 40
-obstacle_height = 40
-player_x = 200
-player_y = 400
-player_width = 20
-player_height = 20
 
 
 class Field():
@@ -45,13 +38,13 @@ class Field():
 
 
 class ChessGame():
-    """_summary_
+    """Chess game GUI
     """
     # game_state: start_menu, game, game_over
     def __init__(self, login: str, **kwargs) -> None:
-        """_summary_
+        """start game
 
-        :param login: _description_
+        :param login: username
         :type login: str
         """
         self.login = login
@@ -59,8 +52,11 @@ class ChessGame():
 
         self.server_api = ServerAPI()
         self.server_api.send(f'login {login}')
-        # data = self.server_api.socket.recv(1024).decode().strip()
-        # print(f'\n\n{data}\n\n')
+        data = self.server_api.socket.recv(1024).decode().strip()
+        if data == 'connection refused':
+            raise LoginTakenException
+        
+        print(f'\n\n{data}\n\n')
         self.server_api.send('new')
         print(f'\n\n{self.server_api.receive()}\n\n')
         self.server_api.send('move e 2 e 4')
@@ -73,7 +69,7 @@ class ChessGame():
         self.draw_start_menu()
 
     def draw_start_menu(self) -> None:
-        """_summary_
+        """draw menu
         """
         translations[self.locale].install()
         self.screen.fill((0, 0, 0))
@@ -95,7 +91,7 @@ class ChessGame():
         pygame.display.update()
 
     def run(self) -> None:
-        """_summary_
+        """run app
         """
         while True:
             for event in pygame.event.get():
@@ -114,12 +110,17 @@ class ChessGame():
     def draw_new_room(self) -> None:
         """_summary_
         """
-        pass
+        ...
 
     def draw_join_room(self) -> None:
         """_summary_
         """
-        pass
+        ...
+
+    def draw_game(self) -> None:
+        """_summary_
+        """
+        ...
 
     def draw_game_over(self) -> None:
         """_summary_
@@ -132,6 +133,16 @@ class ChessGame():
         self.game_state = 'game_over'
         self.buttons = dict()
         pygame.display.update()
+
+    def set_russian(self) -> None:
+        """Set language to russian
+        """
+        self.locale = 'ru_RU.UTF-8'
+
+    def set_english(self) -> None:
+        """Set language to english
+        """
+        self.locale = 'en_NG.UTF-8'
 
 
 class Button():
@@ -189,17 +200,13 @@ class Button():
         x, y = pygame.mouse.get_pos()
         return event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0] and self.rect.collidepoint(x, y)
 
-    def set_russian(self) -> None:
-        """_summary_
-        """
-        self.locale = 'ru_RU.UTF-8'
-
-    def set_english(self) -> None:
-        self.locale = 'en_NG.UTF-8'
-
 
 def game() -> None:
-    """_summary_
+    """Init game
     """
     game = ChessGame(sys.argv[1])
     game.run()
+
+
+class LoginTakenException(Exception):
+    ...

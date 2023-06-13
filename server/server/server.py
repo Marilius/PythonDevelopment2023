@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Server:
-    """_summary_
+    """Server realization
     """
 
     rooms = {}
@@ -20,10 +20,10 @@ class Server:
     async def run(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         """Communicate with clients.
 
-        :param reader: _description_
-        :type reader: _type_
-        :param writer: _description_
-        :type writer: _type_
+        :param reader: reader
+        :type reader: asyncio.StreamReader
+        :param writer: writer
+        :type writer: asyncio.StreamWriter
         """
         ID = '{}:{}'.format(*writer.get_extra_info('peername'))
         personal_queue = asyncio.Queue()
@@ -52,7 +52,9 @@ class Server:
                                     continue
                                 else:
                                     ID = login
-                                    self.clients[ID] = personal_queue
+                                    self.clients[ID] = writer
+                                    writer.write('ok'.encode())
+                                    await writer.drain()
                             case ['move', *args]:
                                 i0, j0, i1, j1 = args
                                 to_other = f'{i0} {j0} {i1} {j1}'
@@ -65,6 +67,7 @@ class Server:
                                 room = random.randint(0, 10000)
                                 while room in self.rooms:
                                     room = random.randint(0, 10000)
+                                room = str(room)
                                 self.rooms[ID] = [room]
 
                                 response = room
