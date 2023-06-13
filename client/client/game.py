@@ -1,3 +1,7 @@
+""" GUI
+"""
+
+
 import gettext
 import os
 
@@ -7,7 +11,6 @@ from .server_api import ServerAPI
 
 
 translations_path = os.path.join(os.path.dirname(__file__), 'translation')
-print(f'\n\n{translations_path}\n\n')
 translations = {
     'en_NG.UTF-8': gettext.translation('client', translations_path, languages=['en'], fallback=True),
     'ru_RU.UTF-8': gettext.translation('client', translations_path, languages=['ru'])
@@ -24,7 +27,14 @@ player_height = 20
 
 
 class Field():
-    def __init__(self, screen, **kwargs):
+    """_summary_
+    """
+    def __init__(self, screen, **kwargs) -> None:
+        """_summary_
+
+        :param screen: _description_
+        :type screen: _type_
+        """
         self.WIDTH, self.HEIGHT, self.MARGIN = 30, 30, 5
         self.grid = [[None] * 8 for i in range(8)]
         # как они там обозначаются?
@@ -34,8 +44,12 @@ class Field():
 
 
 class ChessGame():
+    """_summary_
+    """
     # game_state: start_menu, game, game_over
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs) -> None:
+        """_summary_
+        """
         pygame.init()
         self.screen_shape = (750, 450)
         self.screen = pygame.display.set_mode(self.screen_shape)
@@ -43,7 +57,9 @@ class ChessGame():
         self.buttons = dict()
         self.draw_start_menu()
 
-    def draw_start_menu(self):
+    def draw_start_menu(self) -> None:
+        """_summary_
+        """
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 50)
         title = font.render(_('Chess'), True, (255, 255, 255))  # noqa: F821
@@ -62,7 +78,9 @@ class ChessGame():
         self.buttons['join_room'] = join_room_button
         pygame.display.update()
 
-    def run(self):
+    def run(self) -> None:
+        """_summary_
+        """
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -77,13 +95,19 @@ class ChessGame():
                     elif self.buttons['join_room'].clicked(event):
                         self.draw_join_room()
 
-    def draw_new_room(self):
+    def draw_new_room(self) -> None:
+        """_summary_
+        """
         pass
 
-    def draw_join_room(self):
+    def draw_join_room(self) -> None:
+        """_summary_
+        """
         pass
 
-    def draw_game_over(self):
+    def draw_game_over(self) -> None:
+        """_summary_
+        """
         self.screen.fill((0, 0, 0))
         font = pygame.font.SysFont('arial', 40)
         title = font.render(_('Game Over'), True, (255, 255, 255))  # noqa: F821
@@ -94,13 +118,33 @@ class ChessGame():
 
 
 class Button():
-    def __init__(self, pos=None, text=None, font=30, **kwargs):
+    """_summary_
+    """
+    def __init__(self, pos: tuple[int, int] = None, text: str = None, font: int = 30, **kwargs) -> None:
+        """_summary_
+
+        :param pos: _description_, defaults to None
+        :type pos: tuple[int, int], optional
+        :param text: _description_, defaults to None
+        :type text: str, optional
+        :param font: _description_, defaults to 30
+        :type font: int, optional
+        """
         self.x, self.y = pos
         self.font = pygame.font.SysFont('Arial', font)
         self.size = (kwargs['size'] if 'size' in kwargs else None)
         self.draw_text(text, **kwargs)
 
-    def draw_text(self, text, colour='white', background='black', **kwargs):
+    def draw_text(self, text: str, colour: str = 'white', background: str = 'black', **kwargs) -> None:
+        """_summary_
+
+        :param text: _description_
+        :type text: str
+        :param colour: _description_, defaults to 'white'
+        :type colour: str, optional
+        :param background: _description_, defaults to 'black'
+        :type background: str, optional
+        """
         self.text = self.font.render(text, True, pygame.Color(colour))
         # check outer size !
         self.size = self.text.get_size()
@@ -109,19 +153,31 @@ class Button():
         self.surface.blit(self.text, (0, 0))
         self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
 
-    def show(self, screen):
+    def show(self, screen) -> None:
+        """_summary_
+
+        :param screen: _description_
+        :type screen: _type_
+        """
         screen.blit(self.surface, (self.x - self.size[0] // 2, self.y - self.size[1] // 2))
 
-    def clicked(self, event):
+    def clicked(self, event) -> None:
+        """_summary_
+
+        :param event: _description_
+        :type event: _type_
+        :return: _description_
+        :rtype: _type_
+        """
         x, y = pygame.mouse.get_pos()
         return event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0] and self.rect.collidepoint(x, y)
 
 
 def game() -> None:
+    """_summary_
+    """
     translations['ru_RU.UTF-8'].install()  # установка русского
     # translations['en_NG.UTF-8'].install()  # установка английского
 
-    # ChessGame().run()
-
-
-
+    server_api = ServerAPI()
+    server_api.send()

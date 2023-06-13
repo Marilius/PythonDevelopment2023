@@ -2,10 +2,9 @@
 Server realisation.
 """
 import asyncio
-import os
+import logging
 import random
 import shlex
-import uuid
 
 
 class Server:
@@ -39,6 +38,9 @@ class Server:
                     if task is send:
                         send = asyncio.create_task(reader.readline())
                         data = task.result().decode().strip()
+
+                        logging.INFO('received: %s', data)
+
                         match shlex.split(data):
                             case ['login', login]:
                                 if login in self._clients.keys():
@@ -52,9 +54,9 @@ class Server:
                             case ['new']:
                                 # room = 0
                                 # while room:=random.randint(0, 10000):
-                                    # if room not in self.rooms:
-                                        # break
-                                
+                                #     if room not in self.rooms:
+                                #         break
+
                                 room = random.randint(0, 10000)
                                 self.rooms[ID] = [room]
 
@@ -114,5 +116,5 @@ async def start_game() -> None:
 def main() -> None:
     """entering point
     """
-    print(f'\n\n started \n\n')
+    logging.INFO('\n\n started \n\n')
     asyncio.run(start_game())
