@@ -15,24 +15,24 @@ Client
 
 board.py
 ========
-.. automodule:: client.client.board
+.. automodule:: client.board
    :members:
    :private-members:
 
 game.py
 =======
-.. automodule:: client.client.game
+.. automodule:: client.game
    :members:
    :private-members:
 
 pieces.py
 =========
-.. automodule:: client.client.pieces
+.. automodule:: client.pieces
    :members:
    :private-members:
 
 server_api.py
 =============
-.. automodule:: client.client.server_api
+.. automodule:: client.server_api
    :members:
    :private-members:
