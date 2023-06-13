@@ -15,7 +15,7 @@ Client
 
 board.py
 ========
-.. automodule:: client.client.board
+.. automodule:: client.client
    :members:
    :private-members:
 
