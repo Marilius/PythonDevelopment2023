@@ -7,6 +7,9 @@ import random
 import shlex
 
 
+logging.basicConfig(level=logging.INFO)
+
+
 class Server:
     """_summary_
     """
