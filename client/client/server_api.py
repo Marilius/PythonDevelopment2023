@@ -32,7 +32,7 @@ class ServerAPI:
         """
         self.socket.send(f'{msg}\n'.encode())
 
-    def receive(self) -> tuple[str, str, str, str]:
+    def receive(self) -> str:
         """receive message
 
         :return: enemy move
@@ -42,6 +42,7 @@ class ServerAPI:
 
         responses = self.socket.recv(self.buffer_size).decode()
         print(responses)
-        for response in responses.split('\n'):
-            if response:
-                print(f'\r{response}\n{readline.get_line_buffer()}', end='', flush=True)
+        return responses
+        # for response in responses.split('\n'):
+        #     if response:
+        #         print(f'\r{response}\n{readline.get_line_buffer()}', end='', flush=True)
