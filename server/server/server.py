@@ -75,7 +75,7 @@ class Server:
                                 connected = False
                                 response = 'You successfully left'
                             case _:
-                                logging.warning('Unknown command: %s', data)
+                                logging.warning('Unknown command: "%s"', data)
 
                         if to_other:
                             curr_room = self.rooms[ID]

@@ -59,6 +59,8 @@ class ChessGame():
 
         self.server_api = ServerAPI()
         self.server_api.send(f'login {login}')
+        # data = self.server_api.socket.recv(1024).decode().strip()
+        # print(f'\n\n{data}\n\n')
         self.server_api.send('new')
         print(f'\n\n{self.server_api.receive()}\n\n')
         self.server_api.send('move e 2 e 4')
