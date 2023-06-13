@@ -46,6 +46,7 @@ class Server:
                         match shlex.split(data):
                             case ['login', login]:
                                 if login in self.clients.keys():
+                                    logging.info('Login %s is already taken :(', login)
                                     writer.write('connection refused'.encode())
                                     await writer.drain()
                                     continue
@@ -62,6 +63,8 @@ class Server:
                                 #         break
 
                                 room = random.randint(0, 10000)
+                                while room in self.rooms:
+                                    room = random.randint(0, 10000)
                                 self.rooms[ID] = [room]
 
                                 response = room
@@ -85,9 +88,10 @@ class Server:
                                     break
 
                         if response:
-                            q = self.clients[ID]
-                            logging.info('Sending "%s" to %s', response, ID)
-                            await q.put(to_other)
+                            if ID in self.clients:
+                                q = self.clients[ID]
+                                logging.info('Sending "%s" to %s', response, ID)
+                                await q.put(to_other)
                             # for other_ID, q in self._clients.items():
                             #     if q is not personal_queue:
                             #         lst = message_to_users if isinstance(message_to_users, list) else [message_to_users]
