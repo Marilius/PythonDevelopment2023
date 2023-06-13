@@ -16,7 +16,6 @@ class Server:
 
     rooms = {}
     clients = {}
-    players = {}
 
     async def run(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         """Communicate with clients.
@@ -69,7 +68,7 @@ class Server:
                                     self.rooms[ID].append(room)
                             case ['exit']:
                                 connected = False
-                                response = 'You are successfully left'
+                                response = 'You successfully left'
                             case _:
                                 logging.warning('Unknown command: %s', data)
 

@@ -182,5 +182,5 @@ def game() -> None:
     server_api = ServerAPI()
     server_api.send('login Marlius')
     server_api.send('new')
-    print(server_api.receive())
+    # print(server_api.receive())
     server_api.send('move e 2 e 4')
