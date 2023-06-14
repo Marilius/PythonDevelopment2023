@@ -10,3 +10,6 @@ class TestPawn(unittest.TestCase):
 
     def test_PawnNotation(self):
         self.assertEqual(self.piece.piece_name, '')
+
+if __name__ == '__main__':
+    unittest.main()

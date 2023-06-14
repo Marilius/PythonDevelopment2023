@@ -8,9 +8,9 @@ import sys
 
 import pygame
 
-from client.client.board import Board
-from client.client.pieces import BasePiece
-from client.client.server_api import ServerAPI
+# from client.client.board import Board
+# from client.client.pieces import BasePiece
+# from client.client.server_api import ServerAPI
 
 
 translations_path = os.path.join(os.path.dirname(__file__), 'translation')
@@ -21,12 +21,12 @@ translations = {
 
 
 class Field():
-    """_summary_
+    """game field
     """
     def __init__(self, screen, **kwargs) -> None:
-        """_summary_
+        """init field
 
-        :param screen: _description_
+        :param screen: screen
         :type screen: _type_
         """
         self.WIDTH, self.HEIGHT, self.MARGIN = 30, 30, 5
@@ -49,17 +49,18 @@ class ChessGame():
         """
         self.login = login
         self.locale = 'en_NG.UTF-8'
+        self.locale = 'ru_RU.UTF-8'
 
-        self.server_api = ServerAPI()
-        self.server_api.send(f'login {login}')
-        data = self.server_api.socket.recv(1024).decode().strip()
-        if data == 'connection refused':
-            raise LoginTakenException
+        # self.server_api = ServerAPI()
+        # self.server_api.send(f'login {login}')
+        # data = self.server_api.socket.recv(1024).decode().strip()
+        # if data == 'connection refused':
+            # raise LoginTakenException
         
-        print(f'\n\n{data}\n\n')
-        self.server_api.send('new')
-        print(f'\n\n{self.server_api.receive()}\n\n')
-        self.server_api.send('move e 2 e 4')
+        # print(f'\n\n{data}\n\n')
+        # self.server_api.send('new')
+        # print(f'\n\n{self.server_api.receive()}\n\n')
+        # self.server_api.send('move e 2 e 4')
 
         pygame.init()
         self.screen_shape = (750, 450)
@@ -108,22 +109,22 @@ class ChessGame():
                         self.draw_join_room()
 
     def draw_new_room(self) -> None:
-        """_summary_
+        """draw new room
         """
         ...
 
     def draw_join_room(self) -> None:
-        """_summary_
+        """draw join room
         """
         ...
 
     def draw_game(self) -> None:
-        """_summary_
+        """draw game
         """
         ...
 
     def draw_game_over(self) -> None:
-        """_summary_
+        """draw game over
         """
         translations[self.locale].install()
         self.screen.fill((0, 0, 0))
@@ -146,16 +147,16 @@ class ChessGame():
 
 
 class Button():
-    """_summary_
+    """button
     """
     def __init__(self, pos: tuple[int, int] = None, text: str = None, font: int = 30, **kwargs) -> None:
-        """_summary_
+        """init botton
 
-        :param pos: _description_, defaults to None
+        :param pos: position, defaults to None
         :type pos: tuple[int, int], optional
-        :param text: _description_, defaults to None
+        :param text: text, defaults to None
         :type text: str, optional
-        :param font: _description_, defaults to 30
+        :param font: text font, defaults to 30
         :type font: int, optional
         """
         self.x, self.y = pos
@@ -164,13 +165,13 @@ class Button():
         self.draw_text(text, **kwargs)
 
     def draw_text(self, text: str, colour: str = 'white', background: str = 'black', **kwargs) -> None:
-        """_summary_
+        """draw text
 
-        :param text: _description_
+        :param text: text to draw
         :type text: str
-        :param colour: _description_, defaults to 'white'
+        :param colour: colour, defaults to 'white'
         :type colour: str, optional
-        :param background: _description_, defaults to 'black'
+        :param background: colour, defaults to 'black'
         :type background: str, optional
         """
         self.text = self.font.render(text, True, pygame.Color(colour))
@@ -205,6 +206,7 @@ def game() -> None:
     """Init game
     """
     game = ChessGame(sys.argv[1])
+    # game.set_russian()
     game.run()
 
 

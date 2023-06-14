@@ -125,3 +125,6 @@ class TestPawnKnight(unittest.TestCase):
         self.assertEqual(self.board.move('a', '5', 'a', '6'), 'a5-a6')
         self.assertEqual(self.board.move('b', '7', 'a', '5'), None)
         self.assertEqual(self.board.curr_possible_moves('b', '2'), [('b', '3'), ('b', '4')])
+
+if __name__ == '__main__':
+    unittest.main()
